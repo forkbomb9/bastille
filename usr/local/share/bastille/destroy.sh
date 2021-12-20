@@ -88,12 +88,6 @@ destroy_jail() {
             info "Note: jail console logs archived."
             info "${bastille_jail_log}-$(date +%F)"
         fi
-
-        ## clear any active rdr rules
-        if [ ! -z "$(pfctl -a "rdr/${TARGET}" -Psn 2>/dev/null)" ]; then
-            info "Clearing RDR rules:"
-            pfctl -a "rdr/${TARGET}" -Fn
-        fi
         echo
     fi
 }

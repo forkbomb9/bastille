@@ -90,7 +90,7 @@ if [ $# -gt 0 ]; then
                                         if [ ${JAIL_IP} = "-" ]; then JAIL_IP=$(/usr/sbin/jls -j ${_JAIL} ip6.addr 2> /dev/null); fi
                                 fi
                                 JAIL_HOSTNAME=$(/usr/sbin/jls -j ${_JAIL} host.hostname 2> /dev/null)
-                                JAIL_PORTS=$(pfctl -a "rdr/${_JAIL}" -Psn 2> /dev/null | awk '{ printf "%s/%s:%s"",",$7,$14,$18 }' | sed "s/,$//")
+                                JAIL_PORTS=""
                                 JAIL_PATH=$(/usr/sbin/jls -j ${_JAIL} path 2> /dev/null)
                                 JAIL_RELEASE=$(jexec -l ${_JAIL} freebsd-version -u 2> /dev/null)
                         else

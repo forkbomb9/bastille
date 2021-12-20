@@ -49,20 +49,6 @@ fi
 for _jail in ${JAILS}; do
     ## test if running
     if [ "$(/usr/sbin/jls name | awk "/^${_jail}$/")" ]; then
-        ## remove ip4.addr from firewall table:jails
-        if [ -n "${bastille_network_loopback}" ]; then
-            if grep -qw "interface.*=.*${bastille_network_loopback}" "${bastille_jailsdir}/${_jail}/jail.conf"; then
-                pfctl -q -t jails -T delete "$(/usr/sbin/jls -j ${_jail} ip4.addr)"
-            fi
-        fi
-
-        # Check if pfctl is present
-        if which -s pfctl; then
-            if [ "$(bastille rdr ${_jail} list)" ]; then
-                bastille rdr ${_jail} clear
-            fi
-        fi
-
         ## remove rctl limits
         if [ -s "${bastille_jailsdir}/${_jail}/rctl.conf" ]; then
             while read _limits; do
